@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Inventory Management System (CLI)
 
 A small command-line application for managing product stock. It supports adding, listing, updating stock, deleting products, and reporting items at or below a low-stock threshold. Product data is persisted in a local JSON file.
@@ -76,3 +77,6 @@ The workflow is defined in `.github/workflows/devsecops.yml` and runs on `push` 
 ## Limitations
 
 This is an educational CLI application, not a production inventory platform. It does not include user accounts, concurrent access locking, database transactions, or a web interface. Bandit finds certain risky code patterns but does not replace code review, dependency scanning, or dynamic testing.
+=======
+# devsecops-p5-0110225168
+>>>>>>> cd409818b9e54e91cedcbeffd247d9fdac749abc
