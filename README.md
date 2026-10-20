@@ -1,82 +1,81 @@
-<<<<<<< HEAD
-# Inventory Management System (CLI)
+# Inventory Management System
 
-A small command-line application for managing product stock. It supports adding, listing, updating stock, deleting products, and reporting items at or below a low-stock threshold. Product data is persisted in a local JSON file.
+Aplikasi berbasis Python untuk mengelola stok barang melalui Command Line Interface (CLI).
 
-## Technology
+## Fitur
 
-- Python 3.10+
-- Python standard library (`argparse`, `json`, `dataclasses`, `pathlib`)
-- `pytest` for unit tests
-- `Bandit` for Static Application Security Testing (SAST)
-- GitHub Actions for CI automation
+- Menambahkan data barang.
+- Menampilkan daftar barang.
+- Memperbarui stok barang.
+- Menghapus data barang.
+- Menampilkan barang dengan stok rendah.
+- Menyimpan data barang dalam file JSON.
 
-## Project structure
+## Teknologi yang Digunakan
+
+- Python
+- Pytest untuk pengujian aplikasi.
+- Bandit untuk Static Application Security Testing (SAST).
+- GitHub Actions untuk menjalankan pipeline otomatis.
+
+## Struktur Proyek
 
 ```text
-inventory-devsecops/
+devsecops-p5-0110225168/
 ├── inventory/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── validators.py
-│   ├── storage.py
-│   ├── service.py
-│   └── cli.py
-├── tests/test_inventory.py
+├── tests/
 ├── main.py
 ├── requirements.txt
 ├── pyproject.toml
 ├── README.md
-└── .github/workflows/devsecops.yml
+└── .github/
+    └── workflows/
+        └── devsecops.yml
 ```
 
-The five main source modules (`models.py`, `validators.py`, `storage.py`, `service.py`, and `cli.py`) have distinct responsibilities.
+## Cara Menjalankan Aplikasi
 
-## Run locally
+1. Pastikan Python sudah terinstal.
+2. Clone repository ini dan masuk ke folder proyek.
+3. Instal dependensi:
 
-Use Python 3.10 or newer. From the project root, create and activate a virtual environment if desired.
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-python -m venv .venv
-# Windows PowerShell:
-.venv\\Scripts\\Activate.ps1
-# Linux/macOS:
-source .venv/bin/activate
+4. Jalankan aplikasi:
 
-python -m pip install -r requirements.txt
-python main.py add P001 "Wireless Mouse" 12 89000
-python main.py add P002 "USB Cable" 3 25000
-python main.py list
-python main.py stock P001 8
-python main.py low-stock --threshold 5
-python main.py delete P002
-```
+   ```bash
+   python main.py
+   ```
 
-By default, data is stored at `data/inventory.json`. Use `--data PATH` immediately after `main.py` to choose another file, for example:
+   Untuk menggunakan fitur tertentu, jalankan perintah sesuai fitur yang tersedia, misalnya:
 
-```bash
-python main.py --data ./sample-data.json list
-python main.py --data ./sample-data.json add P003 "USB Hub" 4 75000
-```
+   ```bash
+   python main.py list
+   ```
 
-## Run tests
+## Pengujian
+
+Jalankan pengujian menggunakan perintah:
 
 ```bash
 pytest -v
 ```
 
-## CI/CD and security pipeline
+## Pipeline DevSecOps
 
-The workflow is defined in `.github/workflows/devsecops.yml` and runs on `push` to `main` and `pull_request` targeting `main`. It uses `ubuntu-latest`.
+Proyek ini menggunakan GitHub Actions untuk mengotomatisasi proses pengujian dan pemeriksaan keamanan kode.
 
-1. **Build job:** installs dependencies, compiles Python files, and runs unit tests with pytest.
-2. **SAST job:** runs only after `build` succeeds (`needs: build`) and scans the `inventory/` source package with Bandit.
-3. **Quality Gate:** `bandit -r inventory -ll -ii` fails the job when Bandit reports findings at **Medium or High severity** and **Medium or High confidence**. A failing build also prevents the SAST job from running. This is a simple severity/confidence-based gate; it does not prove that the application is completely secure.
-4. **Artifact:** the workflow uploads `bandit-report.json` when the report was generated, including when a later scan step fails.
+Pipeline mencakup:
 
-## Limitations
+1. **Build dan Testing:** Memasang dependensi dan menjalankan pengujian menggunakan Pytest.
+2. **Security Scanning:** Memindai kode sumber menggunakan Bandit.
+3. **Quality Gate:** Memeriksa temuan keamanan berdasarkan tingkat severity dan confidence yang ditentukan dalam konfigurasi Bandit.
+4. **Security Report:** Menghasilkan laporan pemindaian dalam format JSON jika proses pemindaian berhasil menghasilkan laporan.
 
-This is an educational CLI application, not a production inventory platform. It does not include user accounts, concurrent access locking, database transactions, or a web interface. Bandit finds certain risky code patterns but does not replace code review, dependency scanning, or dynamic testing.
-=======
-# devsecops-p5-0110225168
->>>>>>> cd409818b9e54e91cedcbeffd247d9fdac749abc
+Pipeline berjalan ketika terdapat push ke branch `main` atau pull request yang menargetkan branch `main`.
+
+## Tujuan Proyek
+
+Proyek ini dibuat sebagai implementasi praktikum DevSecOps untuk mempelajari otomatisasi pengujian, pemindaian keamanan kode, dan integrasi keamanan ke dalam alur pengembangan perangkat lunak.
